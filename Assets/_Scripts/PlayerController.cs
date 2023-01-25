@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 20;
-
+    //screenHalfWidthInWorldUnits
+    private float sHWIWU;
     void Start()
     {
+        sHWIWU = Camera.main.orthographicSize * Camera.main.aspect;
     }
 
     void Update()
@@ -15,5 +17,14 @@ public class PlayerController : MonoBehaviour
         float inputX = Input.GetAxisRaw("Horizontal");
         float velocity = inputX * speed;
         transform.Translate(Vector3.right * velocity * Time.deltaTime);
+        if (transform.position.x < -sHWIWU)
+        {
+            transform.position = new Vector2(sHWIWU, transform.position.y);
+        }
+
+        if (transform.position.x > sHWIWU)
+        {
+            transform.position = new Vector2(-sHWIWU, transform.position.y);
+        }
     }
 }
