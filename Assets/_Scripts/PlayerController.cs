@@ -6,7 +6,6 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 20;
 
-    private float playerHalfWidth;
 
     //screenHalfWidthInWorldUnits
     private float sHWIWU;
@@ -14,9 +13,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        playerHalfWidth = transform.localScale.x / 2;
-        sHWIWU = (Camera.main.orthographicSize * Camera.main.aspect); //;
-        float shadowXPos = transform.position.x + Camera.main.orthographicSize;
+        sHWIWU = (Camera.main.orthographicSize * Camera.main.aspect);
         playerShadows[0].transform.position = new Vector2(-sHWIWU*2, transform.position.y);
         playerShadows[1].transform.position = new Vector2(sHWIWU*2, transform.position.y);
     }
