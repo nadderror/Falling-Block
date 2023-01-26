@@ -21,15 +21,16 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
+            var enemySize = Random.Range(1, 5f);
             Vector2 spawnPos = new Vector2(Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x),
-                screenHalfSizeWorldUnits.y);
+                screenHalfSizeWorldUnits.y + (enemySize / 2));
 
-            var enemySize = Random.Range(1, 5);
+
             GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length - 1)], spawnPos,
                 Quaternion.identity);
             newEnemy.transform.localScale = Vector2.one * enemySize;
             var enemyDirection = Random.Range(0, 10f);
-            newEnemy.transform.Rotate(Vector3.forward *(spawnPos.x<0?enemyDirection:-enemyDirection));
+            newEnemy.transform.Rotate(Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection));
             yield return new WaitForSeconds(1);
         }
     }
