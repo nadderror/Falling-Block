@@ -46,13 +46,12 @@ public class Player : MonoBehaviour, IDamageable
         health -= damageAmounth;
         if (health <= 0)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        print(col.tag);
-        print(col.gameObject.name);
+        
     }
 }

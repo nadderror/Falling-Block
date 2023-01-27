@@ -4,20 +4,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IDamageable
 {
     private float health = 2;
-
-    void Start()
-    {
-    }
-
-    void Update()
-    {
-    }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Player")
+        if (col.gameObject.tag == "Destroyer")
         {
-            col.gameObject.GetComponent<IDamageable>().TakeDamage(1);
+            Destroy(gameObject);
+            //col.gameObject.GetComponent<IDamageable>().TakeDamage(1);
         }
     }
 

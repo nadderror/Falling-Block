@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class EnemyFalling : MonoBehaviour
 {
-    private float fallingSpeed = 10;
+    private float fallingSpeed;
+
+    public float FallingSpeed
+    {
+        set { fallingSpeed = value; }
+        get { return fallingSpeed; }
+    }
 
 
     void Update()

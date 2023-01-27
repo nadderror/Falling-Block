@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
 
     IEnumerator SpawnEnemy()
     {
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 60; i++)
         {
             var enemySize = Random.Range(1, 5f);
             Vector2 spawnPos = new Vector2(Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x),
@@ -29,9 +29,12 @@ public class EnemySpawner : MonoBehaviour
             GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length - 1)], spawnPos,
                 Quaternion.identity);
             newEnemy.transform.localScale = Vector2.one * enemySize;
-            var enemyDirection = Random.Range(0, 10f);
+            var enemyDirection = Random.Range(0, 35f);
             newEnemy.transform.Rotate(Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection));
-            yield return new WaitForSeconds(1);
+            newEnemy.GetComponent<EnemyFalling>().FallingSpeed = Mathf.Lerp(10, 20, Difficulty.getDifficulltyPercent());
+
+            float secondsBetweenSpawn = Mathf.Lerp(2, 0.5f, Difficulty.getDifficulltyPercent());
+            yield return new WaitForSeconds(secondsBetweenSpawn);
         }
     }
 }
