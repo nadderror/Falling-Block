@@ -5,16 +5,19 @@ public class EnemyFalling : MonoBehaviour
 {
     private float fallingSpeed;
 
-
     public float FallingSpeed
     {
         set { fallingSpeed = value; }
         get { return fallingSpeed; }
     }
 
-    private void Awake()
+    private void OnEnable()
     {
         fallingSpeed = Mathf.Lerp(10, 40, Difficulty.getDifficulltyPercent());
+    }
+
+    private void Awake()
+    {
     }
 
     void Update()
