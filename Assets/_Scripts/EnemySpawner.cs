@@ -29,9 +29,8 @@ public class EnemySpawner : MonoBehaviour
             GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length - 1)], spawnPos,
                 Quaternion.identity);
             newEnemy.transform.localScale = Vector2.one * enemySize;
-            var enemyDirection = Random.Range(0, 35f);
+            var enemyDirection = Random.Range(0, 40f);
             newEnemy.transform.Rotate(Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection));
-            newEnemy.GetComponent<EnemyFalling>().FallingSpeed = Mathf.Lerp(10, 20, Difficulty.getDifficulltyPercent());
 
             float secondsBetweenSpawn = Mathf.Lerp(2, 0.5f, Difficulty.getDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);

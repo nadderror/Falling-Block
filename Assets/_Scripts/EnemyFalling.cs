@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class EnemyFalling : MonoBehaviour
 {
     private float fallingSpeed;
+
 
     public float FallingSpeed
     {
@@ -10,6 +12,10 @@ public class EnemyFalling : MonoBehaviour
         get { return fallingSpeed; }
     }
 
+    private void Awake()
+    {
+        fallingSpeed = Mathf.Lerp(10, 40, Difficulty.getDifficulltyPercent());
+    }
 
     void Update()
     {
