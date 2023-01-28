@@ -6,11 +6,17 @@ public class Enemy : MonoBehaviour, IDamageable
     private float health = 2;
     public Action<GameObject> action;
 
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (col.gameObject.tag == "Destroyer")
         {
             action(gameObject);
+        }
+
+        else if (col.gameObject.tag == "Player")
+        {
+            col.GetComponent<IDamageable>().TakeDamage(1);
         }
     }
 
@@ -26,4 +32,5 @@ public class Enemy : MonoBehaviour, IDamageable
             Destroy(gameObject);
         }
     }
+    
 }

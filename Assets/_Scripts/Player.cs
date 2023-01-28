@@ -7,8 +7,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
-    private float health = 2;
-
 
     static Player _i; //  _i ←→ _instance 
 
@@ -43,15 +41,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void TakeDamage(float damageAmounth)
     {
-        health -= damageAmounth;
-        if (health <= 0)
-        {
-            //Destroy(gameObject);
-        }
+        GetComponent<Health>().TakeDamage(1);
     }
 
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        
-    }
 }

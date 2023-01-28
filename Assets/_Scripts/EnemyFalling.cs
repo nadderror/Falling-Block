@@ -4,21 +4,22 @@ using UnityEngine;
 public class EnemyFalling : MonoBehaviour
 {
     private float fallingSpeed;
-
-    public float FallingSpeed
-    {
-        set { fallingSpeed = value; }
-        get { return fallingSpeed; }
-    }
-
     private void OnEnable()
     {
         fallingSpeed = Mathf.Lerp(10, 40, Difficulty.getDifficulltyPercent());
     }
-
-    private void Awake()
+    private void Start()
     {
+        FindObjectOfType<GameOver>().OnGameOver += StopMoving;
     }
+
+    private void StopMoving()
+    {
+        fallingSpeed = 0.5f;
+    }
+
+    
+    
 
     void Update()
     {

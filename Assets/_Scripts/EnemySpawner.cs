@@ -6,12 +6,13 @@ public class EnemySpawner : MonoBehaviour
 {
     private Vector2 screenHalfSizeWorldUnits;
     [SerializeField] GameObject[] Enemys;
-
+    private bool canSpawn = true;
     private ObjectPool<GameObject> pool;
 
     void Start()
     {
-        pool = new ObjectPool<GameObject>(CreateBullet, OnGet, OnRelease, OnDestroyBullet, false, 5, 100);
+        FindObjectOfType<GameOver>().OnGameOver += StopSpawning;
+            pool = new ObjectPool<GameObject>(CreateBullet, OnGet, OnRelease, OnDestroyBullet, false, 5, 100);
         screenHalfSizeWorldUnits =
             new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
         StartCoroutine(SpawnEnemy());
@@ -31,7 +32,6 @@ public class EnemySpawner : MonoBehaviour
     {
         EnemyDisplayerCompany(obj);
         obj.SetActive(true);
-        
     }
 
     public void OnReleaseBullet(GameObject bullet)
@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject CreateBullet()
     {
-        GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length - 1)], Vector3.zero, 
+        GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length - 1)], Vector3.zero,
             Quaternion.identity);
         newEnemy.transform.parent = gameObject.transform;
         EnemyDisplayerCompany(newEnemy);
@@ -59,13 +59,19 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
         //enemy.transform.Rotate();
     }
+
     IEnumerator SpawnEnemy()
     {
-        for (int i = 0; i < 60; i++)
+        while (canSpawn)
         {
             pool.Get().GetComponent<Enemy>().InitAction(OnReleaseBullet);
             float secondsBetweenSpawn = Mathf.Lerp(1, 0.5f, Difficulty.getDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
+    }
+
+    void StopSpawning()
+    {
+        canSpawn = false;
     }
 }
