@@ -4,8 +4,10 @@ using UnityEngine;
 public class GameOver: MonoBehaviour
 {
    public event Action OnGameOver;
+   [SerializeField] private GameObject gameOverScreen;
    void Start()
    {
+      gameOverScreen.SetActive(false);
       FindObjectOfType<Player>().GetComponent<Health>().onDeath += PlayerDeath;
    }
 
@@ -13,5 +15,6 @@ public class GameOver: MonoBehaviour
    {
       OnGameOver?.Invoke();
       print("player Death");
+      gameOverScreen.SetActive(true);
    }
 }
