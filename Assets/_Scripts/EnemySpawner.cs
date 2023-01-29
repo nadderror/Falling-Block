@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject CreateBullet()
     {
-        GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length - 1)], Vector3.zero,
+        GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length)], Vector3.zero,
             Quaternion.identity);
         newEnemy.transform.parent = gameObject.transform;
         EnemyDisplayerCompany(newEnemy);

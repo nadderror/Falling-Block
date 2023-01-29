@@ -5,13 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameOver: MonoBehaviour
 {
-   private bool IsGameOver = false;
+    static bool isGameOver;
+    public static bool IsGameOver
+    {
+       get { return isGameOver; }
+    }
    public event Action OnGameOver;
    [SerializeField] private GameObject gameOverScreen;
    [SerializeField] private TextMeshProUGUI score;
    void Start()
    {
-      IsGameOver = false;
+      isGameOver = false;
       gameOverScreen.SetActive(false);
       FindObjectOfType<Player>().GetComponent<Health>().onDeath += PlayerDeath;
       OnGameOver += GameIsOver;
@@ -19,7 +23,7 @@ public class GameOver: MonoBehaviour
 
    private void Update()
    {
-      if (IsGameOver)
+      if (isGameOver)
       {
          if (Input.GetKeyDown(KeyCode.Space))
          {
@@ -37,7 +41,7 @@ public class GameOver: MonoBehaviour
 
    void GameIsOver()
    {
-      IsGameOver = true;
+      isGameOver = true;
    }
    
 }

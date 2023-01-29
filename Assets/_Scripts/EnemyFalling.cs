@@ -19,10 +19,7 @@ public class EnemyFalling : MonoBehaviour
     {
         fallingSpeed = fallingSpeed / 9;
     }
-
     
-    
-
     void Update()
     {
         transform.Translate(Vector2.down * fallingSpeed * Time.deltaTime, Space.Self);
