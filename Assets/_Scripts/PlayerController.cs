@@ -20,30 +20,16 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        float inputX = Input.GetAxisRaw("Horizontal");
-        float inputY = Input.GetAxisRaw("Vertical");
-        var direction = new Vector2(inputX, inputY).normalized;
+        var inputXY = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        var direction = new Vector2(inputXY.x, inputXY.y).normalized;
         var velocity = direction * speed;
         transform.Translate(velocity * Time.deltaTime);
         transform.Translate(velocity * Time.deltaTime);
-        if (transform.position.x < -sHWIWU)
-        {
-            transform.position = new Vector2(-sHWIWU, transform.position.y);
-        }
 
-        if (transform.position.x > sHWIWU)
-        {
-            transform.position = new Vector2(sHWIWU, transform.position.y);
-        }
-        
-        if (transform.position.y < -Camera.main.orthographicSize)
-        {
-            transform.position = new Vector2(transform.position.x, -Camera.main.orthographicSize);
-        }
-
-        if (transform.position.y > Camera.main.orthographicSize)
-        {
-            transform.position = new Vector2(transform.position.x, Camera.main.orthographicSize);
-        }
+        var pos = transform.position;
+        var playerLimitedPosX = pos.x < -sHWIWU ? -sHWIWU : pos.x > sHWIWU ? sHWIWU : pos.x;
+        var playerLimitedPosY = pos.y < -Camera.main.orthographicSize ? -Camera.main.orthographicSize :
+            pos.y > Camera.main.orthographicSize ? Camera.main.orthographicSize : pos.y;
+        transform.position = new Vector2(playerLimitedPosX, playerLimitedPosY);
     }
 }
