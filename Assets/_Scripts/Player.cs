@@ -5,9 +5,8 @@ using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable
+public class Player : MonoBehaviour
 {
-
     static Player _i; //  _i ←→ _instance 
 
     public static Player I
@@ -38,10 +37,4 @@ public class Player : MonoBehaviour, IDamageable
             Destroy(this);
         DontDestroyOnLoad(this.gameObject); //it's ok... i'am first <Player>() now.
     }
-
-    public void TakeDamage(float damageAmounth)
-    {
-        GetComponent<Health>().TakeDamage(1);
-    }
-
 }

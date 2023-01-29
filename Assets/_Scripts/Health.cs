@@ -24,8 +24,8 @@ public class Health : MonoBehaviour, IDamageable
         healthSlider.value--;
         if (healthSlider.value <= 0)
         {
-            onDeath?.Invoke();
             gameObject.SetActive(false);
+            onDeath?.Invoke();
         }
     }
 }

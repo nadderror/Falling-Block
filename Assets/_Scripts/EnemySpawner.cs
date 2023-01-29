@@ -55,7 +55,7 @@ public class EnemySpawner : MonoBehaviour
             screenHalfSizeWorldUnits.y + (enemySize / 2));
         enemy.transform.position = spawnPos;
         enemy.transform.localScale = Vector2.one * enemySize;
-        var enemyDirection = Random.Range(-10, 20);
+        var enemyDirection = Random.Range(-5, 25);
         enemy.transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
         //enemy.transform.Rotate();
     }
@@ -65,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
         while (canSpawn)
         {
             pool.Get().GetComponent<Enemy>().InitAction(OnReleaseBullet);
-            float secondsBetweenSpawn = Mathf.Lerp(1, 0.5f, Difficulty.getDifficulltyPercent());
+            float secondsBetweenSpawn = Mathf.Lerp(1, 0.35f, Difficulty.getDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
     }
