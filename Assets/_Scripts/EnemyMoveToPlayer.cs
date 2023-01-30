@@ -22,7 +22,7 @@ public class EnemyMoveToPlayer : MonoBehaviour, IFollower
 
     private void OnEnable()
     {
-        moveSpeed = Mathf.Lerp(10, Random.Range(30, 50), Difficulty.getDifficulltyPercent());
+        moveSpeed = Mathf.Lerp(5, Random.Range(10, 20), Difficulty.GetDifficulltyPercent());
     }
 
     private void Update()

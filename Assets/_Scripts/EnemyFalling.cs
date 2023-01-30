@@ -12,7 +12,7 @@ public class EnemyFalling : MonoBehaviour
 
     private void OnEnable()
     {
-        fallingSpeed = Mathf.Lerp(10, Random.Range(30,50), Difficulty.getDifficulltyPercent());
+        fallingSpeed = Mathf.Lerp(10, Random.Range(30,50), Difficulty.GetDifficulltyPercent());
     }
 
     private void StopMoving()

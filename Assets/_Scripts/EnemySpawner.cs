@@ -5,14 +5,15 @@ using UnityEngine.Pool;
 public class EnemySpawner : MonoBehaviour
 {
     private Vector2 screenHalfSizeWorldUnits;
-    [SerializeField] GameObject[] Enemys;
+    [SerializeField] GameObject Enemy;
     private bool canSpawn = true;
     private ObjectPool<GameObject> pool;
+    private int enemyTypes;
 
     void Start()
     {
         FindObjectOfType<GameOver>().OnGameOver += StopSpawning;
-            pool = new ObjectPool<GameObject>(CreateBullet, OnGet, OnRelease, OnDestroyBullet, false, 5, 100);
+        pool = new ObjectPool<GameObject>(CreateBullet, OnGet, OnRelease, OnDestroyBullet, false, 5, 100);
         screenHalfSizeWorldUnits =
             new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
         StartCoroutine(SpawnEnemy());
@@ -41,8 +42,7 @@ public class EnemySpawner : MonoBehaviour
 
     private GameObject CreateBullet()
     {
-        GameObject newEnemy = (GameObject) Instantiate(Enemys[Random.Range(0, Enemys.Length)], Vector3.zero,
-            Quaternion.identity);
+        GameObject newEnemy = (GameObject) Instantiate(Enemy, Vector3.zero, Quaternion.identity);
         newEnemy.transform.parent = gameObject.transform;
         EnemyDisplayerCompany(newEnemy);
         return newEnemy;
@@ -65,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
         while (canSpawn)
         {
             pool.Get().GetComponent<Enemy>().InitAction(OnReleaseBullet);
-            float secondsBetweenSpawn = Mathf.Lerp(1, 0.35f, Difficulty.getDifficulltyPercent());
+            float secondsBetweenSpawn = Mathf.Lerp(1, 0.35f, Difficulty.GetDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
     }

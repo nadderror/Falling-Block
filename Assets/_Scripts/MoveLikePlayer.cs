@@ -1,0 +1,36 @@
+/*
+ * MoveLikePlayer.cs
+ * Created by: #AUTHOR#
+ * Created on: #CREATIONDATE#
+*/
+
+using System;
+using System.Collections;
+using UnityEngine;
+
+public class MoveLikePlayer : MonoBehaviour
+{
+    private GameObject playerGameObject;
+
+    void Start()
+    {
+        playerGameObject = FindObjectOfType<Player>().gameObject;
+    }
+
+    private void Update()
+    {
+        Move(playerGameObject);
+    }
+
+    void Move(GameObject obj)
+    {
+        var targetPos = obj.transform.position.normalized;
+        transform.Translate(targetPos * 5 * Time.deltaTime);
+    }
+
+    IEnumerator StartLifrTime()
+    {
+        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);
+    }
+}

@@ -795,9 +795,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b26839af743ad0a43a8e6398c73c9e6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Enemys:
-  - {fileID: 3976903610367296580, guid: ee35262ade9fd114abde454c9c54374c, type: 3}
-  - {fileID: 3976903610367296580, guid: 43d9a4caa54811f448756318d8c5461c, type: 3}
+  Enemy: {fileID: 3976903610367296580, guid: 43d9a4caa54811f448756318d8c5461c, type: 3}
 --- !u!4 &1085212392
 Transform:
   m_ObjectHideFlags: 0
@@ -1322,7 +1320,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7203237459266441115, guid: 18efa5a3df71d4e4086149c3c572c534, type: 3}
       propertyPath: health
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18efa5a3df71d4e4086149c3c572c534, type: 3}
