@@ -31,11 +31,10 @@ public class PlayerShoot : MonoBehaviour, IShootable
     public void Fire(GameObject obj)
     {
         var firePos = transform.position;
-        //var offset = transform.localScale / 2;
-        //var finalPos = firePos + offset;
+        var offset = transform.localScale;
+        var finalPos = new Vector3(firePos.x, firePos.y + offset.y);
         var angel = transform.eulerAngles;
-        GameObject newBullet = (GameObject) Instantiate(obj, firePos, Quaternion.Euler(angel.x, angel.y, angel.z));
+        GameObject newBullet = (GameObject) Instantiate(obj, finalPos, Quaternion.Euler(angel.x, angel.y, angel.z));
         newBullet.transform.parent = transform;
-        
     }
 }
