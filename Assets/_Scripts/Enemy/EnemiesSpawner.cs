@@ -1,14 +1,58 @@
+/*
+ * EnemiesSpawner.cs
+ * Created by: #AUTHOR#
+ * Created on: #CREATIONDATE#
+*/
+
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Pool;
+using Random = UnityEngine.Random;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemiesSpawner : MonoBehaviour
 {
+    static EnemiesSpawner _i; //  _i ←→ _instance 
+    public EnemySO[] Enemies;
     private Vector2 screenHalfSizeWorldUnits;
     [SerializeField] GameObject Enemy;
     private bool canSpawn = true;
     private ObjectPool<GameObject> pool;
-    private int enemyTypes;
+
+    public static EnemiesSpawner I
+    {
+        //  _i ←→ Instance 
+        get
+        {
+            //Singleton
+            if (_i == null) //Are we have EnemiesSpawner before? Checking...
+            {
+                _i = FindObjectOfType<EnemiesSpawner>();
+                if (_i == null)
+                {
+                    //Ok... we dont have any <EnemiesSpawner>(); then create that
+                    GameObject myEnemiesSpawner = new GameObject("EnemiesSpawner");
+                    myEnemiesSpawner.AddComponent<EnemiesSpawner>();
+                    _i = myEnemiesSpawner.GetComponent<EnemiesSpawner>();
+                }
+            }
+
+            //return _i anyway
+            return _i;
+        }
+    }
+
+    private void Awake()
+    {
+        if (_i != null) // if we have _i (EnemiesSpawner) before, then destroy me bos...
+            Destroy(this);
+        //DontDestroyOnLoad(this.gameObject); //it's ok... i'am first <EnemiesSpawner>() now.
+    }
+
+    private void OnEnable()
+    {
+        canSpawn = true;
+    }
 
     void Start()
     {
@@ -57,7 +101,6 @@ public class EnemySpawner : MonoBehaviour
         enemy.transform.localScale = Vector2.one * enemySize;
         var enemyDirection = Random.Range(-5, 25);
         enemy.transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
-        //enemy.transform.Rotate();
     }
 
     IEnumerator SpawnEnemy()
@@ -65,7 +108,7 @@ public class EnemySpawner : MonoBehaviour
         while (canSpawn)
         {
             pool.Get().GetComponent<Enemy>().InitAction(OnReleaseBullet);
-            float secondsBetweenSpawn = Mathf.Lerp(1, 0.35f, Difficulty.GetDifficulltyPercent());
+            float secondsBetweenSpawn = Mathf.Lerp(1, 0.35f, Difficulty.I.GetDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
     }

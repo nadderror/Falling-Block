@@ -1,12 +1,42 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
-public static class Difficulty
+public class Difficulty : MonoBehaviour
 {
-    static float secondsToMaxDifficullty = 20;
+    [SerializeField] private DifficultySo gameDifficulty;
+    public static Difficulty I;
+    int currentDifficultyLevel;
 
-    public static float GetDifficulltyPercent()
+    public int CurrentDifficultyLevel
+    {
+        get { return currentDifficultyLevel; }
+    }
+
+    private bool isReachedToMaxDifficulty = false;
+
+    private void Awake()
+    {
+        I = this;
+    }
+
+    private IEnumerator Start()
+    {
+        currentDifficultyLevel = 0;
+        while (!isReachedToMaxDifficulty)
+        {
+            yield return new WaitForSeconds(gameDifficulty.GetSecondsToAddToDifficuly());
+            currentDifficultyLevel++;
+            if (currentDifficultyLevel >= gameDifficulty.GetMaxDifficultyLevel())
+            {
+                isReachedToMaxDifficulty = true;
+            }
+        }
+    }
+
+    public float GetDifficulltyPercent()
     {
         float targetTime = Time.timeSinceLevelLoad;
-        return Mathf.Clamp01(targetTime / secondsToMaxDifficullty);
+        return Mathf.Clamp01(targetTime / gameDifficulty.GetSecondsToMaxDifficullty());
     }
 }

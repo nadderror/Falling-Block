@@ -13,6 +13,12 @@ public class EnemyMoveToPlayer : MonoBehaviour, IFollower
     private GameObject playerGameObject;
     private Vector2 targetDirection;
     private float moveSpeed;
+    private Enemy myEnemy;
+
+    private void Awake()
+    {
+        myEnemy = GetComponent<Enemy>();
+    }
 
     void Start()
     {
@@ -22,7 +28,7 @@ public class EnemyMoveToPlayer : MonoBehaviour, IFollower
 
     private void OnEnable()
     {
-        moveSpeed = Mathf.Lerp(5, Random.Range(10, 20), Difficulty.GetDifficulltyPercent());
+        moveSpeed = myEnemy.SetAndGetSpeed();
     }
 
     private void Update()

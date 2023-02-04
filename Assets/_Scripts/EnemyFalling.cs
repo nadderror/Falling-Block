@@ -5,6 +5,13 @@ using Random = UnityEngine.Random;
 public class EnemyFalling : MonoBehaviour
 {
     private float fallingSpeed;
+    private Enemy myEnemy;
+
+    private void Awake()
+    {
+        myEnemy = GetComponent<Enemy>();
+    }
+
     private void Start()
     {
         FindObjectOfType<GameOver>().OnGameOver += StopMoving;
@@ -12,7 +19,7 @@ public class EnemyFalling : MonoBehaviour
 
     private void OnEnable()
     {
-        fallingSpeed = Mathf.Lerp(10, Random.Range(30,50), Difficulty.GetDifficulltyPercent());
+        fallingSpeed = myEnemy.SetAndGetSpeed();
     }
 
     private void StopMoving()

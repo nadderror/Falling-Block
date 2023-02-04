@@ -36,5 +36,6 @@ public class Player : MonoBehaviour
         if (_i != null) // if we have _i (Player) before, then destroy me bos...
             Destroy(this);
         DontDestroyOnLoad(this.gameObject); //it's ok... i'am first <Player>() now.
+        
     }
 }

@@ -9,8 +9,14 @@ public class Enemy : MonoBehaviour, IDamageable
 {
     private float health = 2;
     public Action<GameObject> action;
-    private Color[] enemyColors = new Color[3];
+    EnemySO[] Enemies;
     EnemyTypes myType;
+    private float speed;
+
+    private void Awake()
+    {
+        Enemies = EnemiesSpawner.I.Enemies;
+    }
 
     public enum EnemyTypes
     {
@@ -30,13 +36,6 @@ public class Enemy : MonoBehaviour, IDamageable
         {
             col.GetComponent<IDamageable>().TakeDamage(1);
         }
-    }
-
-    private void Awake()
-    {
-        enemyColors[0] = new Color(1.0f, 0.4627451f, 0.2235294f, 1);
-        enemyColors[1] = new Color(0.1798683f, 0.8113208f, 0.5136882f, 1);
-        enemyColors[2] = new Color(0.4476996f, 0.9433962f, 0.2180491f, 1);
     }
 
     private void OnEnable()
@@ -61,7 +60,8 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void ChooseMyType()
     {
-        myType = (EnemyTypes) Random.Range(0, 3);
+        int currentDiffLevel = Difficulty.I.CurrentDifficultyLevel;
+        myType = (EnemyTypes) Random.Range(0, currentDiffLevel);
         //EnemyTypes ETypes = (EnemyTypes) Random.Range(0, 3);
 
         GetComponent<EnemyFalling>().enabled = myType == EnemyTypes.Falling;
@@ -74,14 +74,38 @@ public class Enemy : MonoBehaviour, IDamageable
         switch (eT)
         {
             case EnemyTypes.Falling:
-                GetComponent<SpriteRenderer>().color = enemyColors[0];
+                GetComponent<SpriteRenderer>().color = Enemies[0].GetColor();
                 break;
             case EnemyTypes.Follower:
-                GetComponent<SpriteRenderer>().color = enemyColors[1];
+                GetComponent<SpriteRenderer>().color = Enemies[1].GetColor();
                 break;
             case EnemyTypes.MoveLikePlayer:
-                GetComponent<SpriteRenderer>().color = enemyColors[2];
+                GetComponent<SpriteRenderer>().color = Enemies[2].GetColor();
                 break;
         }
+    }
+
+    public float SetAndGetSpeed()
+    {
+        Vector3 s;
+        switch (myType)
+        {
+            case EnemyTypes.Falling:
+                s = Enemies[0].GetEnemySpeedMinMax();
+
+                break;
+            case EnemyTypes.Follower:
+                s = Enemies[1].GetEnemySpeedMinMax();
+                break;
+            case EnemyTypes.MoveLikePlayer:
+                s = Enemies[2].GetEnemySpeedMinMax();
+                break;
+            default:
+                s = Enemies[0].GetEnemySpeedMinMax();
+                break;
+        }
+
+        speed = Mathf.Lerp(s.x, Random.Range(s.y, s.z), Difficulty.I.GetDifficulltyPercent());
+        return speed;
     }
 }

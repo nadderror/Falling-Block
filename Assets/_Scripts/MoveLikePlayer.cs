@@ -11,6 +11,13 @@ using UnityEngine;
 public class MoveLikePlayer : MonoBehaviour
 {
     private GameObject playerGameObject;
+    private float speed;
+    private Enemy myEnemy;
+
+    private void Awake()
+    {
+        myEnemy = GetComponent<Enemy>();
+    }
 
     void Start()
     {
@@ -25,7 +32,7 @@ public class MoveLikePlayer : MonoBehaviour
     void Move(GameObject obj)
     {
         var targetPos = obj.transform.position.normalized;
-        transform.Translate(targetPos * 5 * Time.deltaTime);
+        transform.Translate(targetPos * myEnemy.SetAndGetSpeed() * Time.deltaTime);
     }
 
     IEnumerator StartLifrTime()
