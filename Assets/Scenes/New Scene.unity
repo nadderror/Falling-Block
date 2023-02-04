@@ -1528,6 +1528,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4517054042665247749, guid: 18efa5a3df71d4e4086149c3c572c534, type: 3}
+      propertyPath: bulletPrefab
+      value: 
+      objectReference: {fileID: 7193786057050802433, guid: 204c5546c0ff3ee4a96a0614ec76038c, type: 3}
     - target: {fileID: 4613145849577485816, guid: 18efa5a3df71d4e4086149c3c572c534, type: 3}
       propertyPath: m_RootOrder
       value: 3
