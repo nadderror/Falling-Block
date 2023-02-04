@@ -21,8 +21,9 @@ public class Enemy : MonoBehaviour, IDamageable
     public enum EnemyTypes
     {
         Falling = 0,
-        Follower = 1,
-        MoveLikePlayer = 2
+        MoveLikePlayer = 1,
+        Follower = 2
+        
     }
 
     private void OnTriggerEnter2D(Collider2D col)

@@ -776,7 +776,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1085212392}
-  - component: {fileID: 1085212391}
   - component: {fileID: 1085212393}
   m_Layer: 0
   m_Name: Enemies Spawner
@@ -785,18 +784,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1085212391
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1085212390}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b26839af743ad0a43a8e6398c73c9e6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1085212392
 Transform:
   m_ObjectHideFlags: 0
@@ -826,8 +813,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 11400000, guid: 6b96c911981f7a944a415c8ae9f0ae70, type: 2}
-  - {fileID: 11400000, guid: 1bf03f658efb3fb4aa8e21c13774d1a8, type: 2}
   - {fileID: 11400000, guid: 941d14599489c1a4db45aa20dedf9556, type: 2}
+  - {fileID: 11400000, guid: 1bf03f658efb3fb4aa8e21c13774d1a8, type: 2}
   Enemy: {fileID: 3976903610367296580, guid: 43d9a4caa54811f448756318d8c5461c, type: 3}
 --- !u!1 &1256130656
 GameObject:
@@ -1555,7 +1542,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: b19f74da9fb68c1498a4eaa3d1896f05, type: 2}
     - target: {fileID: 7203237459266441115, guid: 18efa5a3df71d4e4086149c3c572c534, type: 3}
       propertyPath: health
-      value: 100
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18efa5a3df71d4e4086149c3c572c534, type: 3}

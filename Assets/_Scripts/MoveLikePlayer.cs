@@ -32,6 +32,7 @@ public class MoveLikePlayer : MonoBehaviour
     void Move(GameObject obj)
     {
         var targetPos = obj.transform.position.normalized;
+        targetPos = new Vector3(targetPos.x, -Mathf.Abs(targetPos.y), targetPos.z);
         transform.Translate(targetPos * myEnemy.SetAndGetSpeed() * Time.deltaTime);
     }
 
