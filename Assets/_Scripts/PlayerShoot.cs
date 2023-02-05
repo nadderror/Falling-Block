@@ -35,6 +35,6 @@ public class PlayerShoot : MonoBehaviour, IShootable
         var finalPos = new Vector3(firePos.x, firePos.y + offset.y);
         var angel = transform.eulerAngles;
         GameObject newBullet = (GameObject) Instantiate(obj, finalPos, Quaternion.Euler(angel.x, angel.y, angel.z));
-        newBullet.transform.parent = transform;
+        //newBullet.transform.parent = transform;
     }
 }

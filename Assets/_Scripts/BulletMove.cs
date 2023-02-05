@@ -16,6 +16,6 @@ public class BulletMove: MonoBehaviour
 
    private void Update()
    {
-       transform.Translate(Vector3.up * 10 * Time.deltaTime);
+       transform.Translate(Vector3.up * 10 * Time.deltaTime,Space.World);
    }
 }
