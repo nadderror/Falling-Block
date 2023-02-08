@@ -14,5 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyColor: {r: 0.18039216, g: 0.8117648, b: 0.5137255, a: 1}
   enemySpeedMinMax: {x: 10, y: 20, z: 40}
-  enemySizeMinMax: {x: 1, y: 2, z: 5}
-  enemyEnterPermitTime: 0
+  enemySizeMinMax: {x: 1.5, y: 2, z: 3}

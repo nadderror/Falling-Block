@@ -18,19 +18,11 @@ public class EnemySO : ScriptableObject
         return enemySpeedMinMax;
     }
 
-//x = beginning min , y = min , z = max
+    //x = beginning min , y = min , z = max
     [SerializeField] private Vector3 enemySizeMinMax;
 
     public Vector3 GetSizeMinMax()
     {
         return enemySizeMinMax;
-    }
-
-    //each enemy, when can enter in game play?
-    [SerializeField] private float enemyEnterPermitTime;
-
-    public float GetEnterPermitTime()
-    {
-        return enemyEnterPermitTime;
     }
 }

@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour, IDamageable
 {
     private float health = 2;
-    public Action<GameObject> action;
+    public Action<GameObject> disableLikeDie;
     EnemySO[] Enemies;
     EnemyTypes myType;
     private float speed;
@@ -30,7 +30,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         if (col.gameObject.tag == "Destroyer")
         {
-            action(gameObject);
+            disableLikeDie(gameObject);
         }
 
         else if (col.gameObject.tag == "Player")
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void InitAction(Action<GameObject> _action)
     {
-        action = _action;
+        disableLikeDie = _action;
     }
 
     public void TakeDamage(float damageAmounth)

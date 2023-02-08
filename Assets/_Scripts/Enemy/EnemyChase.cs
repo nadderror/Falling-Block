@@ -16,6 +16,12 @@ public class EnemyChase : MonoBehaviour, IFollower
     private Vector3 targetDirection;
     private float moveSpeed;
     private Enemy myEnemy;
+    private bool isChasing = true;
+
+    public bool IsChasing
+    {
+        get { return isChasing; }
+    }
 
     private void Awake()
     {
@@ -45,9 +51,10 @@ public class EnemyChase : MonoBehaviour, IFollower
             targetDirection = (target.transform.position - transform.position);
             targetDirection.Normalize();
         }
-
-        float angel = Mathf.Atan2(targetDirection.y, targetDirection.x)*Mathf.Rad2Deg;
         
+
+        float angel = Mathf.Atan2(targetDirection.y, targetDirection.x) * Mathf.Rad2Deg;
+
         transform.position = Vector2.MoveTowards(this.transform.position,
             playerGameObject.transform.position,
             moveSpeed * Time.deltaTime);
@@ -57,6 +64,7 @@ public class EnemyChase : MonoBehaviour, IFollower
     void TargetDied()
     {
         targetDirection = Random.insideUnitCircle.normalized;
-        moveSpeed = moveSpeed / 7;
+        isChasing = false;
+        moveSpeed /= 7;
     }
 }

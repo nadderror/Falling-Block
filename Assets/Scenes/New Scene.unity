@@ -420,7 +420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1235454
+  m_text: 123456789
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 2923dd2bfad1dde47a0c1cfc4f3fc4bd, type: 2}
   m_sharedMaterial: {fileID: 6358379061991268967, guid: 2923dd2bfad1dde47a0c1cfc4f3fc4bd, type: 2}
@@ -815,7 +815,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6b96c911981f7a944a415c8ae9f0ae70, type: 2}
   - {fileID: 11400000, guid: 941d14599489c1a4db45aa20dedf9556, type: 2}
   - {fileID: 11400000, guid: 1bf03f658efb3fb4aa8e21c13774d1a8, type: 2}
-  Enemy: {fileID: 3976903610367296580, guid: 43d9a4caa54811f448756318d8c5461c, type: 3}
+  Enemy: {fileID: 3976903610367296580, guid: 0c78d27801d3dfd468f6eb1df9aaa10e, type: 3}
 --- !u!1 &1256130656
 GameObject:
   m_ObjectHideFlags: 0
