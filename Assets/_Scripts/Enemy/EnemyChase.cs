@@ -5,13 +5,15 @@
 */
 
 using System;
+using Unity.Mathematics;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class EnemyMoveToPlayer : MonoBehaviour, IFollower
+public class EnemyChase : MonoBehaviour, IFollower
 {
     private GameObject playerGameObject;
-    private Vector2 targetDirection;
+    private Vector3 targetDirection;
     private float moveSpeed;
     private Enemy myEnemy;
 
@@ -39,14 +41,22 @@ public class EnemyMoveToPlayer : MonoBehaviour, IFollower
     public void FollowTarget(GameObject target)
     {
         if (!GameOver.IsGameOver)
-            targetDirection = (target.transform.position - transform.position).normalized;
-        var velocity = targetDirection * moveSpeed;
-        transform.Translate(velocity * Time.deltaTime);
+        {
+            targetDirection = (target.transform.position - transform.position);
+            targetDirection.Normalize();
+        }
+
+        float angel = Mathf.Atan2(targetDirection.y, targetDirection.x)*Mathf.Rad2Deg;
+        
+        transform.position = Vector2.MoveTowards(this.transform.position,
+            playerGameObject.transform.position,
+            moveSpeed * Time.deltaTime);
+        transform.rotation = Quaternion.Euler(Vector3.forward * angel);
     }
 
     void TargetDied()
     {
         targetDirection = Random.insideUnitCircle.normalized;
-        moveSpeed = moveSpeed / 9;
+        moveSpeed = moveSpeed / 7;
     }
 }

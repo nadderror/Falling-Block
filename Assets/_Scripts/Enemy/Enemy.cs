@@ -3,7 +3,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(EnemyFalling))]
-[RequireComponent(typeof(EnemyMoveToPlayer))]
+[RequireComponent(typeof(EnemyChase))]
 [RequireComponent(typeof(MoveLikePlayer))]
 public class Enemy : MonoBehaviour, IDamageable
 {
@@ -18,12 +18,12 @@ public class Enemy : MonoBehaviour, IDamageable
         Enemies = EnemiesSpawner.I.Enemies;
     }
 
+
     public enum EnemyTypes
     {
         Falling = 0,
         MoveLikePlayer = 1,
         Follower = 2
-        
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -41,6 +41,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
+        
         ChooseMyType();
         ChooseColor(myType);
     }
@@ -66,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamageable
         //EnemyTypes ETypes = (EnemyTypes) Random.Range(0, 3);
 
         GetComponent<EnemyFalling>().enabled = myType == EnemyTypes.Falling;
-        GetComponent<EnemyMoveToPlayer>().enabled = myType == EnemyTypes.Follower;
+        GetComponent<EnemyChase>().enabled = myType == EnemyTypes.Follower;
         GetComponent<MoveLikePlayer>().enabled = myType == EnemyTypes.MoveLikePlayer;
     }
 

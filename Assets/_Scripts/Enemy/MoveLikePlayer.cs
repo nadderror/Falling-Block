@@ -36,7 +36,7 @@ public class MoveLikePlayer : MonoBehaviour
         transform.Translate(targetPos * myEnemy.SetAndGetSpeed() * Time.deltaTime);
     }
 
-    IEnumerator StartLifrTime()
+    IEnumerator StartLifeTime()
     {
         yield return new WaitForSeconds(1);
         yield return new WaitForSeconds(1);
