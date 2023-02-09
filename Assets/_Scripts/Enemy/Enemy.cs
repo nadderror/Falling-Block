@@ -10,12 +10,18 @@ public class Enemy : MonoBehaviour, IDamageable
     private float health = 2;
     public Action<GameObject> disableLikeDie;
     EnemySO[] Enemies;
+    private EnemySO currentEnemyType;
     EnemyTypes myType;
     private float speed;
+    private float enemySize;
+    private Vector2 screenHalfSizeWorldUnits;
+    private Vector2 spawnPos;
 
     private void Awake()
     {
         Enemies = EnemiesSpawner.I.Enemies;
+        screenHalfSizeWorldUnits =
+            new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
     }
 
 
@@ -23,7 +29,7 @@ public class Enemy : MonoBehaviour, IDamageable
     {
         Falling = 0,
         MoveLikePlayer = 1,
-        Follower = 2
+        Chaser = 2
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -41,14 +47,49 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
-        
         ChooseMyType();
         ChooseColor(myType);
+        ChooseMyScale();
+        ChooseMyPos();
+        ChooseMyRotation();
     }
 
-    public void InitAction(Action<GameObject> _action)
+    void ChooseMyType()
     {
-        disableLikeDie = _action;
+        int currentDiffLevel = Difficulty.I.CurrentDifficultyLevel;
+        myType = (EnemyTypes) Random.Range(0, currentDiffLevel);
+        currentEnemyType = Enemies[(int) myType];
+        //EnemyTypes ETypes = (EnemyTypes) Random.Range(0, 3);
+
+        GetComponent<EnemyFalling>().enabled = myType == EnemyTypes.Falling;
+        GetComponent<EnemyChase>().enabled = myType == EnemyTypes.Chaser;
+        GetComponent<MoveLikePlayer>().enabled = myType == EnemyTypes.MoveLikePlayer;
+    }
+
+    void ChooseColor(EnemyTypes eT)
+    {
+        GetComponent<SpriteRenderer>().color = currentEnemyType.GetColor();
+    }
+
+
+    private void ChooseMyScale()
+    {
+        var sizeMinMax = currentEnemyType.GetSizeMinMax();
+        enemySize = Random.Range(sizeMinMax.x, Random.Range(sizeMinMax.y, sizeMinMax.z));
+        transform.localScale = Vector2.one * enemySize;
+    }
+
+    void ChooseMyPos()
+    {
+        spawnPos = new Vector2(Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x),
+            screenHalfSizeWorldUnits.y + (enemySize / 2));
+        transform.position = spawnPos;
+    }
+
+    void ChooseMyRotation()
+    {
+        var enemyDirection = Random.Range(-5, 25);
+        transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
     }
 
     public void TakeDamage(float damageAmounth)
@@ -60,53 +101,16 @@ public class Enemy : MonoBehaviour, IDamageable
         }
     }
 
-    void ChooseMyType()
+    public void InitAction(Action<GameObject> _action)
     {
-        int currentDiffLevel = Difficulty.I.CurrentDifficultyLevel;
-        myType = (EnemyTypes) Random.Range(0, currentDiffLevel);
-        //EnemyTypes ETypes = (EnemyTypes) Random.Range(0, 3);
-
-        GetComponent<EnemyFalling>().enabled = myType == EnemyTypes.Falling;
-        GetComponent<EnemyChase>().enabled = myType == EnemyTypes.Follower;
-        GetComponent<MoveLikePlayer>().enabled = myType == EnemyTypes.MoveLikePlayer;
+        disableLikeDie = _action;
     }
 
-    void ChooseColor(EnemyTypes eT)
-    {
-        switch (eT)
-        {
-            case EnemyTypes.Falling:
-                GetComponent<SpriteRenderer>().color = Enemies[0].GetColor();
-                break;
-            case EnemyTypes.Follower:
-                GetComponent<SpriteRenderer>().color = Enemies[1].GetColor();
-                break;
-            case EnemyTypes.MoveLikePlayer:
-                GetComponent<SpriteRenderer>().color = Enemies[2].GetColor();
-                break;
-        }
-    }
 
     public float SetAndGetSpeed()
     {
         Vector3 s;
-        switch (myType)
-        {
-            case EnemyTypes.Falling:
-                s = Enemies[0].GetEnemySpeedMinMax();
-
-                break;
-            case EnemyTypes.Follower:
-                s = Enemies[1].GetEnemySpeedMinMax();
-                break;
-            case EnemyTypes.MoveLikePlayer:
-                s = Enemies[2].GetEnemySpeedMinMax();
-                break;
-            default:
-                s = Enemies[0].GetEnemySpeedMinMax();
-                break;
-        }
-
+        s = currentEnemyType.GetEnemySpeedMinMax();
         speed = Mathf.Lerp(s.x, Random.Range(s.y, s.z), Difficulty.I.GetDifficulltyPercent());
         return speed;
     }

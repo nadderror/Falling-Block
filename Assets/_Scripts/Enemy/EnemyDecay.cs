@@ -42,8 +42,8 @@ public class EnemyDecay : MonoBehaviour
         var scale = transform.localScale.x;
         while (isDecayOn)
         {
-            transform.localScale = Vector2.one * (transform.localScale.x - 0.05f);
-            yield return new WaitForSeconds(0.01f);
+            transform.localScale = Vector2.one * (transform.localScale.x - 0.02f);
+            yield return new WaitForSeconds(0.02f);
             if (transform.localScale.x <= 1f)
             {
                 GetComponent<Enemy>().disableLikeDie(gameObject);

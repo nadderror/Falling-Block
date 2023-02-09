@@ -58,8 +58,7 @@ public class EnemiesSpawner : MonoBehaviour
     {
         FindObjectOfType<GameOver>().OnGameOver += StopSpawning;
         pool = new ObjectPool<GameObject>(CreateBullet, OnGet, OnRelease, OnDestroyBullet, false, 5, 100);
-        screenHalfSizeWorldUnits =
-            new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
+        
         StartCoroutine(SpawnEnemy());
     }
 
@@ -75,7 +74,6 @@ public class EnemiesSpawner : MonoBehaviour
 
     private void OnGet(GameObject obj)
     {
-        EnemyDisplayerCompany(obj);
         obj.SetActive(true);
     }
 
@@ -88,20 +86,9 @@ public class EnemiesSpawner : MonoBehaviour
     {
         GameObject newEnemy = (GameObject) Instantiate(Enemy, Vector3.zero, Quaternion.identity);
         newEnemy.transform.parent = gameObject.transform;
-        EnemyDisplayerCompany(newEnemy);
         return newEnemy;
     }
-
-    void EnemyDisplayerCompany(GameObject enemy)
-    {
-        var enemySize = Random.Range(1, 5f);
-        Vector2 spawnPos = new Vector2(Random.Range(-screenHalfSizeWorldUnits.x, screenHalfSizeWorldUnits.x),
-            screenHalfSizeWorldUnits.y + (enemySize / 2));
-        enemy.transform.position = spawnPos;
-        enemy.transform.localScale = Vector2.one * enemySize;
-        var enemyDirection = Random.Range(-5, 25);
-        enemy.transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
-    }
+    
 
     IEnumerator SpawnEnemy()
     {
