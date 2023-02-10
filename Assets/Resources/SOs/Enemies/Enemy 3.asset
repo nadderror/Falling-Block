@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6f327c760f4d76a3aeb3abfc592f6f, type: 3}
   m_Name: Enemy 3
   m_EditorClassIdentifier: 
+  rotationType: 2
   enemyColor: {r: 0.18039216, g: 0.8117648, b: 0.5137255, a: 1}
   enemySpeedMinMax: {x: 7, y: 10, z: 20}
   enemySizeMinMax: {x: 1, y: 2, z: 3}
