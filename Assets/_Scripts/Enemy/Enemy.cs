@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void ChooseMyRotation()
     {
-        var enemyDirection = Random.Range(4, 25f);
+        var enemyDirection = Random.Range(5, 25f);
         switch (currentEnemyType.GetRotationType())
         {
             case EnemySO.RotationType.Random:
@@ -98,8 +98,7 @@ public class Enemy : MonoBehaviour, IDamageable
                 break;
             case EnemySO.RotationType.playerX:
                 var playerPos = playerOBJ.transform.position;
-                enemyDirection = playerPos.x < 0 ? -enemyDirection :
-                    playerPos.x > 0 ? enemyDirection : 0;
+                enemyDirection = playerPos.x < 0 ? -enemyDirection :enemyDirection;
                 transform.eulerAngles = Vector3.forward * enemyDirection;
                 break;
             //case EnemySO.RotationType.Chase:
