@@ -4,7 +4,7 @@ using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(EnemyFalling))]
 [RequireComponent(typeof(EnemyChase))]
-[RequireComponent(typeof(MoveLikePlayer))]
+[RequireComponent(typeof(EnemyFalling2))]
 public class Enemy : MonoBehaviour, IDamageable
 {
     private float health = 2;
@@ -16,12 +16,14 @@ public class Enemy : MonoBehaviour, IDamageable
     private float enemySize;
     private Vector2 screenHalfSizeWorldUnits;
     private Vector2 spawnPos;
+    private GameObject playerOBJ;
 
     private void Awake()
     {
         Enemies = EnemiesSpawner.I.Enemies;
         screenHalfSizeWorldUnits =
             new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
+        playerOBJ = FindObjectOfType<Player>().gameObject;
     }
 
 
@@ -63,7 +65,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
         GetComponent<EnemyFalling>().enabled = myType == EnemyTypes.Falling;
         GetComponent<EnemyChase>().enabled = myType == EnemyTypes.Chaser;
-        GetComponent<MoveLikePlayer>().enabled = myType == EnemyTypes.MoveLikePlayer;
+        GetComponent<EnemyFalling2>().enabled = myType == EnemyTypes.MoveLikePlayer;
     }
 
     void ChooseColor(EnemyTypes eT)
@@ -88,8 +90,21 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void ChooseMyRotation()
     {
-        var enemyDirection = Random.Range(-5, 25);
-        transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
+        var enemyDirection = Random.Range(4, 25f);
+        switch (currentEnemyType.GetRotationType())
+        {
+            case EnemySO.RotationType.Random:
+                transform.eulerAngles = Vector3.forward * (spawnPos.x < 0 ? enemyDirection : -enemyDirection);
+                break;
+            case EnemySO.RotationType.playerX:
+                var playerPos = playerOBJ.transform.position;
+                enemyDirection = playerPos.x < 0 ? -enemyDirection :
+                    playerPos.x > 0 ? enemyDirection : 0;
+                transform.eulerAngles = Vector3.forward * enemyDirection;
+                break;
+            //case EnemySO.RotationType.Chase:
+            //    break;
+        }
     }
 
     public void TakeDamage(float damageAmounth)

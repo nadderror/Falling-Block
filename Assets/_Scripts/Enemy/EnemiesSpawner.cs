@@ -95,7 +95,8 @@ public class EnemiesSpawner : MonoBehaviour
         while (canSpawn)
         {
             pool.Get().GetComponent<Enemy>().InitAction(OnReleaseBullet);
-            float secondsBetweenSpawn = Mathf.Lerp(1, 0.35f, Difficulty.I.GetDifficulltyPercent());
+            var secondsBetweenSpawnMinMax = Difficulty.I.SecondsBetweenSpawn;
+            float secondsBetweenSpawn = Mathf.Lerp(secondsBetweenSpawnMinMax.x, secondsBetweenSpawnMinMax.y, Difficulty.I.GetDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
     }

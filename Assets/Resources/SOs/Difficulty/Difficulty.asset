@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Difficulty
   m_EditorClassIdentifier: 
   SecondsToMaxDifficullty: 60
-  SecondsToAddToDifficuly: 2
+  SecondsToAddToDifficuly: 20
   MaxDifficultyLevel: 3

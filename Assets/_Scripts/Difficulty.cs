@@ -7,6 +7,11 @@ public class Difficulty : MonoBehaviour
     [SerializeField] private DifficultySo gameDifficulty;
     public static Difficulty I;
     int currentDifficultyLevel;
+    private Vector2 secondsBetweenSpawn;
+    public Vector2 SecondsBetweenSpawn
+    {
+        get { return secondsBetweenSpawn; }
+    }
 
     public int CurrentDifficultyLevel
     {
@@ -18,6 +23,7 @@ public class Difficulty : MonoBehaviour
     private void Awake()
     {
         I = this;
+        secondsBetweenSpawn = gameDifficulty.GetSecondsOfSpawnMinMax();
     }
 
     private IEnumerator Start()

@@ -10,6 +10,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = ("New DifficultySo"), menuName = ("Scriptable Objects/DifficultySo"), order = 0)]
 public class DifficultySo : ScriptableObject
 {
+    [SerializeField] private Vector2 SecondsOfSpawnMinMax;
+
+    public Vector2 GetSecondsOfSpawnMinMax()
+    {
+        return SecondsOfSpawnMinMax;
+    }
     [SerializeField] private float SecondsToMaxDifficullty;
 
     public float GetSecondsToMaxDifficullty()

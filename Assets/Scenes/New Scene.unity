@@ -813,8 +813,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Enemies:
   - {fileID: 11400000, guid: 6b96c911981f7a944a415c8ae9f0ae70, type: 2}
-  - {fileID: 11400000, guid: 941d14599489c1a4db45aa20dedf9556, type: 2}
   - {fileID: 11400000, guid: 1bf03f658efb3fb4aa8e21c13774d1a8, type: 2}
+  - {fileID: 11400000, guid: 941d14599489c1a4db45aa20dedf9556, type: 2}
   Enemy: {fileID: 3976903610367296580, guid: 0c78d27801d3dfd468f6eb1df9aaa10e, type: 3}
 --- !u!1 &1256130656
 GameObject:

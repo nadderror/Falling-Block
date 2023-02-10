@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class EnemyFalling : MonoBehaviour
 {
@@ -26,7 +24,7 @@ public class EnemyFalling : MonoBehaviour
     {
         fallingSpeed = fallingSpeed / 9;
     }
-    
+
     void Update()
     {
         transform.Translate(Vector2.down * fallingSpeed * Time.deltaTime, Space.Self);
