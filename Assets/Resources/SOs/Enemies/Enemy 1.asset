@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6f327c760f4d76a3aeb3abfc592f6f, type: 3}
   m_Name: Enemy 1
   m_EditorClassIdentifier: 
+  rotationType: 0
   enemyColor: {r: 1, g: 0.46274513, b: 0.22352943, a: 1}
-  enemySpeedMinMax: {x: 10, y: 20, z: 40}
-  enemySizeMinMax: {x: 1, y: 2, z: 5}
-  enemyEnterPermitTime: 0
+  enemySpeedMinMax: {x: 15, y: 20, z: 40}
+  enemySizeMinMax: {x: 1, y: 2, z: 7}

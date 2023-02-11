@@ -24,6 +24,7 @@ public class Enemy : MonoBehaviour, IDamageable
         screenHalfSizeWorldUnits =
             new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
         playerOBJ = FindObjectOfType<Player>().gameObject;
+        //GetComponent<TrailRenderer>().enabled = false;
     }
 
 
@@ -49,11 +50,19 @@ public class Enemy : MonoBehaviour, IDamageable
 
     private void OnEnable()
     {
+        GetComponent<TrailRenderer>().Clear();
         ChooseMyType();
         ChooseColor(myType);
         ChooseMyScale();
         ChooseMyPos();
         ChooseMyRotation();
+        
+    }
+
+    private void OnDisable()
+    {
+        //GetComponent<TrailRenderer>().enabled = false;
+        ChooseMyPos();
     }
 
     void ChooseMyType()

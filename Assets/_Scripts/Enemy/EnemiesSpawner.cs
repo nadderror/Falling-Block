@@ -46,6 +46,8 @@ public class EnemiesSpawner : MonoBehaviour
     {
         if (_i != null) // if we have _i (EnemiesSpawner) before, then destroy me bos...
             Destroy(this);
+        screenHalfSizeWorldUnits =
+            new Vector2(Camera.main.orthographicSize * Camera.main.aspect, Camera.main.orthographicSize);
         //DontDestroyOnLoad(this.gameObject); //it's ok... i'am first <EnemiesSpawner>() now.
     }
 
@@ -58,7 +60,7 @@ public class EnemiesSpawner : MonoBehaviour
     {
         FindObjectOfType<GameOver>().OnGameOver += StopSpawning;
         pool = new ObjectPool<GameObject>(CreateBullet, OnGet, OnRelease, OnDestroyBullet, false, 5, 100);
-        
+
         StartCoroutine(SpawnEnemy());
     }
 
@@ -84,11 +86,12 @@ public class EnemiesSpawner : MonoBehaviour
 
     private GameObject CreateBullet()
     {
-        GameObject newEnemy = (GameObject) Instantiate(Enemy, Vector3.zero, Quaternion.identity);
+        GameObject newEnemy =
+            (GameObject) Instantiate(Enemy, screenHalfSizeWorldUnits * 1.5f, Quaternion.identity);
         newEnemy.transform.parent = gameObject.transform;
         return newEnemy;
     }
-    
+
 
     IEnumerator SpawnEnemy()
     {
@@ -96,7 +99,8 @@ public class EnemiesSpawner : MonoBehaviour
         {
             pool.Get().GetComponent<Enemy>().InitAction(OnReleaseBullet);
             var secondsBetweenSpawnMinMax = Difficulty.I.SecondsBetweenSpawn;
-            float secondsBetweenSpawn = Mathf.Lerp(secondsBetweenSpawnMinMax.x, secondsBetweenSpawnMinMax.y, Difficulty.I.GetDifficulltyPercent());
+            float secondsBetweenSpawn = Mathf.Lerp(secondsBetweenSpawnMinMax.x, secondsBetweenSpawnMinMax.y,
+                Difficulty.I.GetDifficulltyPercent());
             yield return new WaitForSeconds(secondsBetweenSpawn);
         }
     }

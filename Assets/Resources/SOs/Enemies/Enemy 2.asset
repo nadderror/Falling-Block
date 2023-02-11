@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotationType: 1
   enemyColor: {r: 0.44705886, g: 0.9450981, b: 0.21960786, a: 1}
-  enemySpeedMinMax: {x: 10, y: 20, z: 40}
+  enemySpeedMinMax: {x: 10, y: 20, z: 30}
   enemySizeMinMax: {x: 1, y: 2, z: 5}
