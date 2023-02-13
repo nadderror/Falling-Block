@@ -70,7 +70,6 @@ public class Enemy : MonoBehaviour, IDamageable
         int currentDiffLevel = Difficulty.I.CurrentDifficultyLevel;
         myType = (EnemyTypes) Random.Range(0, currentDiffLevel);
         currentEnemyType = Enemies[(int) myType];
-        //EnemyTypes ETypes = (EnemyTypes) Random.Range(0, 3);
 
         GetComponent<EnemyFalling>().enabled = myType == EnemyTypes.Falling;
         GetComponent<EnemyChase>().enabled = myType == EnemyTypes.Chaser;
